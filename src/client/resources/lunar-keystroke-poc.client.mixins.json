@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "pet.cece.mixin.client",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"KeyboardHandlerMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
