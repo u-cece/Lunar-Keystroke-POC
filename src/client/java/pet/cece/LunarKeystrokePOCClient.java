@@ -11,14 +11,14 @@ public class LunarKeystrokePOCClient implements ClientModInitializer {
 	public static final int MASKING_SWITCH_GLFW_KEY = GLFW.GLFW_KEY_M;
 	public static final short MASKING_SWITCH_NATIVE_KEY = 'M';
 
-	private static boolean maskingKeyEvents = false;
+	private static boolean maskingInputEvents = false;
 
-	public static void setMaskingKeyEvents(boolean maskingKeyEvents) {
-		LunarKeystrokePOCClient.maskingKeyEvents = maskingKeyEvents;
+	public static void setMaskingInputEvents(boolean maskingKeyEvents) {
+		LunarKeystrokePOCClient.maskingInputEvents = maskingKeyEvents;
 	}
 
-	public static boolean isMaskingKeyEvents() {
-		return maskingKeyEvents;
+	public static boolean isMaskingInputEvents() {
+		return maskingInputEvents;
 	}
 
 	public static void sendNativeInputs(INPUT.Buffer inputs) {

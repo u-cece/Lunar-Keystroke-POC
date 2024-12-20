@@ -16,11 +16,11 @@ public class KeyboardHandlerMixin {
     public void keyPress(long glfwHandle, int key, int scancode, int action, int mods, CallbackInfo ci) {
         if (key == LunarKeystrokePOCClient.MASKING_SWITCH_GLFW_KEY) {
             if (action == GLFW.GLFW_PRESS)
-                LunarKeystrokePOCClient.setMaskingKeyEvents(true);
+                LunarKeystrokePOCClient.setMaskingInputEvents(true);
             if (action == GLFW.GLFW_RELEASE)
-                LunarKeystrokePOCClient.setMaskingKeyEvents(false);
+                LunarKeystrokePOCClient.setMaskingInputEvents(false);
         }
-        if (LunarKeystrokePOCClient.isMaskingKeyEvents()) {
+        if (LunarKeystrokePOCClient.isMaskingInputEvents()) {
             ci.cancel();
             return;
         }
@@ -52,6 +52,35 @@ public class KeyboardHandlerMixin {
                         .wVk((short) 'W')
                         .dwFlags(User32.KEYEVENTF_KEYUP);
 
+            }
+
+            LunarKeystrokePOCClient.sendNativeInputs(buffer);
+        }
+
+        if (key == GLFW.GLFW_KEY_SEMICOLON) {
+            INPUT.Buffer buffer = INPUT.create(3);
+
+            INPUT switchDown = buffer.get(0);
+            switchDown.type(User32.INPUT_KEYBOARD);
+            switchDown.DUMMYUNIONNAME_ki()
+                    .wVk(LunarKeystrokePOCClient.MASKING_SWITCH_NATIVE_KEY);
+
+            INPUT switchUp = buffer.get(2);
+            switchUp.type(User32.INPUT_KEYBOARD);
+            switchUp.DUMMYUNIONNAME_ki()
+                    .wVk(LunarKeystrokePOCClient.MASKING_SWITCH_NATIVE_KEY)
+                    .dwFlags(User32.KEYEVENTF_KEYUP);
+
+            INPUT clickDown = buffer.get(1);
+            clickDown.type(User32.INPUT_MOUSE);
+
+            if (action == GLFW.GLFW_PRESS) {
+                clickDown.DUMMYUNIONNAME_mi()
+                        .dwFlags(User32.MOUSEEVENTF_LEFTDOWN);
+            }
+            if (action == GLFW.GLFW_RELEASE) {
+                clickDown.DUMMYUNIONNAME_mi()
+                        .dwFlags(User32.MOUSEEVENTF_LEFTUP);
             }
 
             LunarKeystrokePOCClient.sendNativeInputs(buffer);

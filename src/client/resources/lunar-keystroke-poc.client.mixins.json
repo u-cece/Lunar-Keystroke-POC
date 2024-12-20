@@ -3,7 +3,8 @@
 	"package": "pet.cece.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"KeyboardHandlerMixin"
+		"KeyboardHandlerMixin",
+		"MouseHandlerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
